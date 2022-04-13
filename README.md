@@ -1,6 +1,6 @@
 # Library app
 
-##Features
+## Features
 
 - React frontend
 - Nginx web server
@@ -11,11 +11,11 @@
 
 **Prerequisites:** You must have `docker` and `docker-compose` installed, and the docker daemon running. (https://docs.docker.com/compose/install/)
 
-To start the application, simply type:
+To launch all three containers and start the application, simply type:
 ```
 $ docker-compose up
 ```
-to launch all three containers. It will take few minutes to compile everything the first time you run it (rust is notoriously slow to compile), but the runtime is very fast.
+It will take few minutes to compile everything the first time you run it (rust is notoriously slow to compile), but the runtime and subsequent compiles are very fast thanks to caching.
 
 (you might have to run `docker-compose` as root or use `sudo`)
 
