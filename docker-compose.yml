@@ -1,0 +1,44 @@
+version: '3'
+services:
+  library-db:
+    image: 'postgres:alpine'
+    container_name: library-db
+    volumes:
+      - library-data:/var/lib/postgresql/data
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    expose:
+      - '5432'
+    networks:
+      - library-network
+    environment:
+      - POSTGRES_DB=library
+      - POSTGRES_USER=library
+      - POSTGRES_PASSWORD=library
+
+  library-backend:
+    build: ./backend
+    container_name: library-backend
+    environment:
+      - DB_SERVER=library-db
+      - POSTGRES_DB=library
+      - POSTGRES_USER=library
+      - POSTGRES_PASSWORD=library
+    expose:
+      - '8080'
+    networks:
+      - library-network
+
+  library-frontend:
+    build: ./frontend
+    container_name: library-frontend
+    ports:
+      - 3000:80
+    networks:
+      - library-network
+
+networks:
+  library-network:
+    driver: bridge
+
+volumes:
+  library-data:
