@@ -1,20 +1,21 @@
 FROM rust:1.60-slim-buster
 
-# 2. Copy our manifests
+# Copy the manifests
 COPY ./Cargo.lock .
 COPY ./Cargo.toml .
 
-# 3. Build a dummy file to cache dependencies
+# Build a dummy file to cache dependencies
 RUN mkdir src && echo 'fn main() {}' > src/main.rs
 RUN cargo build --release
 RUN rm src/main.rs
 RUN rmdir src
 
-# 4. Now that the dependency is built, copy the actual source code
+# Now that the dependency is built, copy the actual source code
 COPY . .
 RUN touch src/main.rs
 
-# 5. Build for release.
+# Build for release.
 RUN cargo build --release
 
-CMD ["./target/debug/library-backend"]
+# Run the app
+CMD ["./target/release/library-backend"]

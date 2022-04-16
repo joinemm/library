@@ -28,6 +28,9 @@ pub fn run(listener: TcpListener, connection: PgPool) -> std::io::Result<Server>
         App::new()
             .wrap(Logger::default())
             .service(ping)
+            .service(book_list)
+            .service(book_add)
+            .service(book_delete)
             .app_data(connection_arc.clone())
     })
     .listen(listener)?
