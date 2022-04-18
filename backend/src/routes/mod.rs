@@ -1,4 +1,4 @@
-mod book_functions;
+mod book;
 mod ping;
-pub use book_functions::*;
+pub use book::*;
 pub use ping::*;
