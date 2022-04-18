@@ -1,5 +1,7 @@
 # Library app
 
+![screenshot](screenshot.png)
+
 ## Features
 
 - React frontend
