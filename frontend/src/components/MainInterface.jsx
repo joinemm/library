@@ -1,9 +1,10 @@
 import { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Grid, Snackbar, Alert, ClickAwayListener } from '@mui/material';
+import { Grid, Alert, ClickAwayListener } from '@mui/material';
 import BookList from './BookList';
 import BookForm from './BookForm';
 import axios from 'axios';
+import Notification from './Notification';
 
 const API_ENDPOINT = process.env.BACKEND_PATH || '';
 class MainInterface extends Component {
@@ -142,21 +143,10 @@ class MainInterface extends Component {
     return (
       <ClickAwayListener onClickAway={this.clearForm}>
         <Grid container spacing={2} columns={2}>
-          <Snackbar
-            open={this.state.snackbar.open}
-            autoHideDuration={6000}
-            onClose={this.handleSnackbarClose}
-            anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
-          >
-            <Alert
-              variant="filled"
-              onClose={this.handleSnackbarClose}
-              severity={this.state.snackbar.severity}
-              sx={{ width: '100%' }}
-            >
-              {this.state.snackbar.message}
-            </Alert>
-          </Snackbar>
+          <Notification
+            snackbarState={this.state.snackbar}
+            handleClose={this.handleSnackbarClose}
+          ></Notification>
           <Grid item xs={1}>
             <BookForm
               bookIsSelected={this.state.selectedBookId != null}

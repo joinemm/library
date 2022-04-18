@@ -1,4 +1,4 @@
-import { Stack, Collapse, Skeleton } from '@mui/material';
+import { Stack, Collapse, Skeleton, Alert } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
 import Book from './Book';
 
@@ -22,7 +22,7 @@ const BookList = (props) => {
           </TransitionGroup>
         </Stack>
       ) : (
-        <Skeleton height={91} sx={{ transform: 'none' }}></Skeleton>
+        <Alert severity="info">Start by adding some books</Alert>
       )}
     </>
   );
