@@ -1,7 +1,7 @@
 import React from 'react';
 import { version } from 'react';
 import { createTheme, ThemeProvider, Container, Box, CssBaseline, Icon } from '@mui/material';
-import MainInterface from './components/MainInterface';
+import Interface from './components/Interface';
 import MenuBook from '@mui/icons-material/MenuBook';
 
 console.log('Running react ' + version);
@@ -31,7 +31,7 @@ function App() {
                 <MenuBook></MenuBook>
               </Icon>
             </Box>
-            <MainInterface></MainInterface>
+            <Interface></Interface>
           </Box>
         </Box>
       </Container>

@@ -1,4 +1,4 @@
-import { Stack, Collapse, Skeleton, Alert } from '@mui/material';
+import { Stack, Collapse, Alert } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
 import Book from './Book';
 

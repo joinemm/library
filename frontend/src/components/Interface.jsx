@@ -7,7 +7,7 @@ import axios from 'axios';
 import Notification from './Notification';
 
 const API_ENDPOINT = process.env.BACKEND_PATH || '';
-class MainInterface extends Component {
+class Interface extends Component {
   constructor() {
     super();
     this.state = {
@@ -178,4 +178,4 @@ class MainInterface extends Component {
   }
 }
 
-export default MainInterface;
+export default Interface;
