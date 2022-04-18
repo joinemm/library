@@ -31,8 +31,6 @@ services:
   library-frontend:
     build: ./frontend
     container_name: library-frontend
-    environment:
-      - BACKEND_PATH=/api
     ports:
       - 3000:80
     networks:

@@ -6,7 +6,7 @@ import BookForm from './BookForm';
 import axios from 'axios';
 import Notification from './Notification';
 
-const API_ENDPOINT = process.env.BACKEND_PATH || '';
+const API_ENDPOINT = process.env.NODE_ENV === 'production' ? '/api' : '';
 class Interface extends Component {
   constructor() {
     super();
