@@ -2,6 +2,7 @@ import { Stack, TextField, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const BookForm = ({
+  bookIsSelected,
   onTitleChange,
   onAuthorChange,
   onDescriptionChange,
@@ -27,13 +28,19 @@ const BookForm = ({
         fullWidth
       />
       <Stack spacing={2} direction="row" sx={{ justifyContent: 'space-between' }}>
-        <Button variant="outlined" onClick={onSaveNew}>
+        <Button variant="contained" onClick={onSaveNew}>
           Save new
         </Button>
-        <Button variant="outlined" onClick={onSave}>
+        <Button variant="contained" onClick={onSave} disabled={!bookIsSelected}>
           Save
         </Button>
-        <Button variant="outlined" color="error" startIcon={<DeleteIcon />} onClick={onDelete}>
+        <Button
+          variant="contained"
+          color="error"
+          startIcon={<DeleteIcon />}
+          onClick={onDelete}
+          disabled={!bookIsSelected}
+        >
           Delete
         </Button>
       </Stack>

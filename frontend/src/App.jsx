@@ -5,10 +5,7 @@ import MainInterface from './components/MainInterface';
 import MenuBook from '@mui/icons-material/MenuBook';
 
 console.log('Running react ' + version);
-const api_endpoint = process.env.BACKEND_PATH || '';
-fetch(api_endpoint + '/ping').then((response) => {
-  console.log(response.statusText);
-});
+
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
