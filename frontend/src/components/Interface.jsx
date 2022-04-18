@@ -85,31 +85,51 @@ class Interface extends Component {
   }
 
   saveNewBook() {
-    this.bookApiPostRequest(
-      '/book/add',
-      {
-        id: uuidv4(),
-        title: this.state.formTitle,
-        author: this.state.formAuthor,
-        description: this.state.formDescription,
-      },
-      'Added a new book',
-      true,
-    );
+    if (this.state.formTitle.trim().length === 0 || this.state.formAuthor.trim().length === 0) {
+      this.setState({
+        snackbar: {
+          open: true,
+          message: 'The title and author fields must not be empty',
+          severity: 'error',
+        },
+      });
+    } else {
+      this.bookApiPostRequest(
+        '/book/add',
+        {
+          id: uuidv4(),
+          title: this.state.formTitle,
+          author: this.state.formAuthor,
+          description: this.state.formDescription,
+        },
+        'Added a new book',
+        true,
+      );
+    }
   }
 
   editBook() {
-    this.bookApiPostRequest(
-      '/book/edit',
-      {
-        id: this.state.selectedBookId,
-        title: this.state.formTitle,
-        author: this.state.formAuthor,
-        description: this.state.formDescription,
-      },
-      'Saved changes to the selected book',
-      false,
-    );
+    if (this.state.formTitle.trim().length === 0 || this.state.formAuthor.trim().length === 0) {
+      this.setState({
+        snackbar: {
+          open: true,
+          message: 'The title and author fields must not be empty',
+          severity: 'error',
+        },
+      });
+    } else {
+      this.bookApiPostRequest(
+        '/book/edit',
+        {
+          id: this.state.selectedBookId,
+          title: this.state.formTitle,
+          author: this.state.formAuthor,
+          description: this.state.formDescription,
+        },
+        'Saved changes to the selected book',
+        false,
+      );
+    }
   }
 
   deleteBook() {
