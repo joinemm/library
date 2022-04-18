@@ -9,7 +9,7 @@
 
 ## How to run it?
 
-**Prerequisites:** You must have `docker` and `docker-compose` installed, and the docker daemon running. (https://docs.docker.com/compose/install/)
+**Prerequisites:** You must have `docker` and `docker-compose` installed, and the docker daemon running. (https://docs.docker.com/compose/install)
 
 To launch all three containers and start the application, simply type:
 ```
@@ -19,4 +19,4 @@ It will take few minutes to compile everything the first time you run it (rust i
 
 (you might have to run `docker-compose` as root or use `sudo`)
 
-Then navigate your favourite browser to `localhost:3000`
+Then navigate your favourite browser to http://localhost:3000
