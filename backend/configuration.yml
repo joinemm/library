@@ -1,9 +1,0 @@
-application_port: 8080
-application_ip: "0.0.0.0"
-database:
-  database_engine: postgresql
-  port: 5432
-  host: library-db
-  username: library
-  password: library
-  database_name: library

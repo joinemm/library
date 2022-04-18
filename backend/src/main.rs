@@ -2,16 +2,50 @@ use crate::routes::*;
 use actix_web::middleware::Logger;
 use actix_web::{dev::Server, web, App, HttpServer};
 use env_logger::Env;
+use envconfig::Envconfig;
 use sqlx::PgPool;
 use std::net::TcpListener;
 
 pub mod routes;
 
+#[derive(Envconfig)]
+pub struct Config {
+    #[envconfig(from = "APP_PORT", default = "8080")]
+    pub application_port: u16,
+
+    #[envconfig(from = "APP_ADDRESS", default = "0.0.0.0")]
+    pub application_ip: String,
+
+    #[envconfig(from = "DB_HOST", default = "localhost")]
+    pub db_host: String,
+
+    #[envconfig(from = "DB_PORT", default = "5432")]
+    pub db_port: u16,
+
+    #[envconfig(from = "POSTGRES_USER", default = "library")]
+    pub db_username: String,
+
+    #[envconfig(from = "POSTGRES_PASSWORD", default = "library")]
+    pub db_password: String,
+
+    #[envconfig(from = "POSTGRES_DB", default = "library")]
+    pub db_name: String,
+}
+
+impl Config {
+    pub fn connection_string(&self) -> String {
+        format!(
+            "postgresql://{}:{}@{}:{}/{}",
+            self.db_username, self.db_password, self.db_host, self.db_port, self.db_name
+        )
+    }
+}
+
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
     env_logger::Builder::from_env(Env::default().default_filter_or("info")).init();
-    let configuration = source_configuration().expect("Failed to read configuration");
-    let connection = PgPool::connect(&configuration.database.as_connection_string())
+    let configuration = Config::init_from_env().unwrap();
+    let connection = PgPool::connect(&configuration.connection_string())
         .await
         .expect("Failed to connect to database");
     let address = format!(
@@ -38,40 +72,4 @@ pub fn run(listener: TcpListener, connection: PgPool) -> std::io::Result<Server>
     .run();
 
     Ok(server)
-}
-
-#[derive(serde::Deserialize)]
-pub struct Settings {
-    pub database: DatabaseSettings,
-    pub application_port: u16,
-    pub application_ip: String,
-}
-#[derive(serde::Deserialize)]
-pub struct DatabaseSettings {
-    pub database_engine: String,
-    pub host: String,
-    pub port: u16,
-    pub username: String,
-    pub password: String,
-    pub database_name: String,
-}
-
-impl DatabaseSettings {
-    pub fn as_connection_string(&self) -> String {
-        format!(
-            "{}://{}:{}@{}:{}/{}",
-            self.database_engine,
-            self.username,
-            self.password,
-            self.host,
-            self.port,
-            self.database_name
-        )
-    }
-}
-
-pub fn source_configuration() -> Result<Settings, config::ConfigError> {
-    let mut settings = config::Config::default();
-    settings.merge(config::File::with_name("configuration"))?;
-    settings.try_into()
 }
