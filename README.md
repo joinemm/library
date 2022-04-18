@@ -17,7 +17,7 @@ To launch all three containers and start the application, simply type:
 ```
 $ docker-compose up
 ```
-It will take few minutes to compile everything the first time you run it (rust is notoriously slow to compile), but the runtime and subsequent compiles are very fast thanks to caching.
+It will take few minutes to download the container images and compile everything for production the first time you run it (rust is notoriously slow to compile), but the runtime and subsequent compiles are very fast thanks to caching.
 
 (you might have to run `docker-compose` as root or use `sudo`)
 
