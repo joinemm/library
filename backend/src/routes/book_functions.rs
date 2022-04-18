@@ -41,6 +41,23 @@ pub async fn book_add(form: web::Form<Book>, connection: web::Data<PgPool>) -> i
     }
 }
 
+#[post("/book/edit")]
+pub async fn book_edit(form: web::Form<Book>, connection: web::Data<PgPool>) -> impl Responder {
+    match sqlx::query::<Postgres>(
+        "UPDATE book SET title = $2, author = $3, description = $4 WHERE id = $1",
+    )
+    .bind(&form.id)
+    .bind(&form.title)
+    .bind(&form.author)
+    .bind(&form.description)
+    .execute(connection.get_ref())
+    .await
+    {
+        Ok(_) => HttpResponse::Ok().finish(),
+        Err(e) => return HttpResponse::InternalServerError().body(format!("{:?}", e)),
+    }
+}
+
 #[derive(Deserialize, Debug)]
 pub struct DeleteRequest {
     id: Uuid,

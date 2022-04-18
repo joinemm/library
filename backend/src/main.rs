@@ -30,6 +30,7 @@ pub fn run(listener: TcpListener, connection: PgPool) -> std::io::Result<Server>
             .service(ping)
             .service(book_list)
             .service(book_add)
+            .service(book_edit)
             .service(book_delete)
             .app_data(connection_arc.clone())
     })
